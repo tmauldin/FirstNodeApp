@@ -1,0 +1,34 @@
+var express = require('express');
+var app = express();
+
+//for dev debug
+app.configure('development', function() {
+  app.use(express.errorHandler({
+    dumpExceptions: true,
+    showStack: true
+  }));
+});
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.set('view options', {layout: true});
+
+var pageNo = 0;
+
+app.get('/', function(req, res){
+  if (pageNo == 0)
+  {
+    res.render('root');
+  }	
+  else if (pageNo == 1)
+  {
+    res.send('Page 2!');
+  }
+});
+
+app.post('/changePage', function(req, res){
+    console.log(req.body);
+});
+
+app.listen(8080);
+console.log('Listening on port 8080');
